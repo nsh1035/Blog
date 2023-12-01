@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>친구추가</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    <%- include('menu.html') %>
+    <h1>친구는 3명까지 등록 가능합니다.</h1>
+    <div class = "container mt-4">
+        <form action="/friend" method="post">
+            <div class = "form-group">
+                <label>친구1</label>
+                <input type = "text" name = "friend1" class = "form-control"></input>
+            </div>
+            <p></p>
+            <div class = "form-group">
+                <label>친구2</label>
+                <input type = "text" name = "friend2" class = "form-control"></input>
+            </div>
+            <p></p>
+            <div class = "form-group">
+                <label>친구3</label>
+                <input type = "text" name = "friend3" class = "form-control"></input>
+            </div>
+            <p></p>
+            <button type = "submit" class = "btn btn-warning" style = "float:right;">확인</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>

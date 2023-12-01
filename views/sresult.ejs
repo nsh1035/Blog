@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>검색 결과</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    <%- include('menu.html') %>
+    <div class="container">
+      <ul class ="list-group">
+        <% for(let i = 0; i < data.length; i++){ %>
+          <li class = "list-group-item">
+          <div class="card" style="width: 100%;">
+            <div class="card-header">
+              <h4 class="card-title"><%= data[i].title %></h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text"><%= data[i].content %></p>
+              <img src = "<%= data[i].path %>" width="500"/><p></p>
+              <p class="card-subtitle mb-2">작성자 : <%= data[i].writer %></p>
+              <p class="card-subtitle mb-2">작성일 : <%= data[i].date %></p>
+              <a href="/edit/<%= data[i]._id %>" class="card-link">수정하기</a>
+              <a href="/listmongo" class="card-link">목록</a>
+            </div>
+          </div>
+          </li>
+          <% } %>
+      </ul>
+    </div>
+  </body>
+</html>

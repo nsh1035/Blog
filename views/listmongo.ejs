@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>글 목록</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    <%- include('menu.html') %>
+    <p></p>
+    <div class="container input-group ml-2 my-3">
+      <input class="form-control sword" type="search" placeholder="검색어 입력">
+      <button class="btn btn-success input-group-append sbtn">Search</button>
+    </div>
+
+    <table class = "table table-hover table-striped text-center container mt-4" style = "border: 1px solid;">
+        <thread>
+            <tr>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>삭제</th>
+            </tr>
+        </thread>
+        <tbody>
+        <% for(let i = 0; i < data.length; i++){ %>
+            <tr>
+                <td><a href = "/content/<%= data[i]._id %>"><%= data[i].title %></a></td>
+                <td><%= data[i].content %></td>
+                <td><%= data[i].writer %></td>
+                <td><%= data[i].date %></td>
+                <td><button class = 'delete btn btn-outline-danger' data-id = '<%= data[i]._id %>'>삭제</button></td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <div>
+      <button class = 'delete btn btn-primary enter' style="float: right;" onclick="move_enter()">글쓰기</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+      function move_enter(){
+        window.open('/entermongo', '_self');
+      }
+    </script>
+    <script>
+      $('.delete').click(function(e){
+        let sid = e.target.dataset.id;
+        let item = $(this);
+        $.ajax({
+          type: 'post',
+          url: '/delete',
+          data: {_id: sid}
+        }).done(function(result){
+          item.parent('td').parent('tr').remove();
+          e.target.parentNode.parentNode.remove($(this).parent);
+        }).fail(function(xhr, textStatus, errorThrown){
+          console.log('게시물 삭제 실패');
+          console.log(xhr, textStatus, errorThrown);
+        })
+      })
+
+      $('.sbtn').click(function(){
+        let inputValue = $('.sword').val();
+        location.href = '\\search?value=' + inputValue;
+      })
+    </script>
+  </body>
+</html>
