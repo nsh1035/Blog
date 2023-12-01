@@ -15,8 +15,6 @@ mongoClient
         console.log(err);
 });
 
-conn.connect();
-
 const express = require('express');
 const app = express();
 
