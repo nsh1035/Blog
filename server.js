@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
+const sha = require('sha256');
 
 //이미지 경로 설정
 let multer = require('multer');
@@ -70,7 +71,7 @@ app.post('/login', function(req, res){
     mydb.collection("account")
         .findOne({userid : req.body.userid})
         .then((result) => {
-            if(result.userpw == req.body.userpw){
+            if(result.userpw == sha(req.body.userpw)){
                 req.session.user = req.body;
                 console.log('새로운 로그인');
                 res.render('index.ejs', {user : req.session.user});
@@ -99,7 +100,7 @@ app.post('/signup', function(req, res){
     console.log(req.body.useremail);
 
     mydb.collection('account').insertOne(
-        {userid : req.body.userid, userpw : req.body.userpw, usergroup : req.body.usergroup, useremail : req.body.useremail,}
+        {userid : req.body.userid, userpw : sha(req.body.userpw), usergroup : req.body.usergroup, useremail : req.body.useremail,}
     ).then(result => {
         console.log('회원가입 성공');
     });
